@@ -43,6 +43,8 @@ test('searches', () => {
   const words = all.map(u => u.searchParams.get('keywords'))
   for (const k of ['WEX Recruiter', 'WEX Talent Acquisition', 'WEX Engineering Manager', 'WEX SIT', 'WEX Bengaluru', 'WEX Software Engineer']) assert.ok(words.includes(k), k)
   assert.equal(all[0].searchParams.get('network'), '["F"]')
+  // Recruiters you already know: company + Recruiter keyword, scoped to 1st-degree connections.
+  assert.ok(all.some(u => u.searchParams.get('keywords') === 'WEX Recruiter' && u.searchParams.get('network') === '["F"]'), '1st-degree recruiters')
   assert.equal(searches({ ...job, company: '' }, '').length, 0)
 })
 
